@@ -1,0 +1,5 @@
+name: Unit Validation Example
+type: module
+description: An example module to demonstrate using TDD when writing a form.
+package: Example modules
+core: 8.x
