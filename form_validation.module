@@ -1,7 +1,16 @@
 <?php
+/**
+ * @file
+ * Module hooks and callbacks.
+ */
 
 /**
  * File validation callback.
+ *
+ * Check the CSV is in the correct format, using commas as a separator, and
+ * with at least 2 columns per row.
+ *
+ * @see file_validate()
  *
  * @param \Drupal\file\FileInterface $file
  *     The file to be validated.
@@ -12,3 +21,4 @@
 function form_validation_validate_csv(\Drupal\file\FileInterface $file) {
   return \Drupal::service('form_validation.csv_validator')->validate($file);
 }
+

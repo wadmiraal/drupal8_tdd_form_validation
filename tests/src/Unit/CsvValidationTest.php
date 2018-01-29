@@ -9,9 +9,15 @@ use Drupal\file\FileInterface;
 use Drupal\form_validation\CsvValidator;
 use Drupal\Tests\UnitTestCase;
 
+/**
+ * @group form_validation_example
+ */
 class CsvValidationTest extends UnitTestCase {
   use StringTranslationTrait;
 
+  /**
+   * {@inheritdoc}
+   */
   public function setUp() {
     parent::setUp();
     require_once __DIR__ . '/../../../form_validation.module';

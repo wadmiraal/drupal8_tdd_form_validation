@@ -8,6 +8,18 @@ use Drupal\file\FileInterface;
 class CsvValidator {
   use StringTranslationTrait;
 
+  /**
+   * Validate a CSV file.
+   *
+   * Check the CSV is in the correct format, using commas as a separator, and
+   * with at least 2 columns per row.
+   *
+   * @param \Drupal\file\FileInterface $file
+   *     The file to be validated.
+   *
+   * @return array
+   *     List of validation issues, if any.
+   */
   public function validate(FileInterface $file) {
     $fh = fopen($file->getFileUri(), 'r');
 
@@ -19,6 +31,8 @@ class CsvValidator {
       ];
     }
 
+    // Analyze the rows. Each row should have at least 2 columns, and the 1st 2 columns cannot
+    // be empty.
     $i = 0;
     $errors = array();
     while ($row = fgetcsv($fh)) {
@@ -33,4 +47,6 @@ class CsvValidator {
     }
     return $errors;
   }
+
 }
+
