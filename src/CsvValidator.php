@@ -2,29 +2,20 @@
 
 namespace Drupal\form_validation;
 
-use Drupal\file\FileInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\file\FileInterface;
 
 class CsvValidator {
-  use StringTranslationTrait { t as public; }
+  use StringTranslationTrait;
 
-  /**
-   * Validate the CSV file uses the correct format.
-   *
-   * @param \Drupal\file\FileInterface $file
-   *
-   * @return array
-   *     The errors, if any.
-   */
   public function validate(FileInterface $file) {
     $fh = fopen($file->getFileUri(), 'r');
 
-    // Analyze the first row, to check if the format is correct. There should be
-    // 2 columns exactly. If not, the data is probably not comma-separated.
+    // Analyze the file format. We should get 2 columns.
     $row = fgetcsv($fh);
-    if (count($row) < 2) {
+    if (empty($row) || count($row) < 2) {
       return [
-        $this->t("The CSV format is incorrect."),
+        $this->t("The CSV format is incorrect. Use commas."),
       ];
     }
 
@@ -34,13 +25,12 @@ class CsvValidator {
       $i++;
       @list($title, $author) = $row;
       if (empty($title)) {
-        $errors[] = $this->t("The book title on line @line is empty.", ['@line' => $i]);
+        $errors[] = $this->t("The book title on line @line is empty. You must provide a title for each book.", ['@line' => $i]);
       }
       if (empty($author)) {
-        $errors[] = $this->t("Line @line doesn't specify an author.", ['@line' => $i]);
+        $errors[] = $this->t("The author on line @line is empty. You must provide at least one author.", ['@line' => $i]);
       }
     }
-    fclose($fh);
     return $errors;
   }
 }

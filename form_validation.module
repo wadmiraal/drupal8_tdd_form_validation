@@ -3,15 +3,11 @@
 /**
  * File validation callback.
  *
- * Validate the CSV file uses the correct format.
- *
- * @see \Drupal\form_validation\Form\BookImportForm::buildForm()
- * @see form_validation.csv_validator
- *
  * @param \Drupal\file\FileInterface $file
+ *     The file to be validated.
  *
  * @return array
- *     The errors, if any.
+ *     List of validation issues, if any.
  */
 function form_validation_validate_csv(\Drupal\file\FileInterface $file) {
   return \Drupal::service('form_validation.csv_validator')->validate($file);

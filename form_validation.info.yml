@@ -1,5 +1,4 @@
-name: Unit Validation Example
-type: module
-description: An example module to demonstrate using TDD when writing a form.
-package: Example modules
+name: Form Validation Example
+description: Example module using TDD practices.
 core: 8.x
+type: module
