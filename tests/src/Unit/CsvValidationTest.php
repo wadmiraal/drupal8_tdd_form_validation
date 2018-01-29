@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\form_validation\Tests\Unit;
+namespace Drupal\Tests\form_validation\Unit;
 
 use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
