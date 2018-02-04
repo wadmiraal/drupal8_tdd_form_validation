@@ -9,6 +9,9 @@ use Drupal\form_validation\Form\BookImportForm;
 use Drupal\Tests\UnitTestCase;
 use Drupal\user\Entity\User;
 
+/**
+ * @group form_validation_example
+ */
 class BookImportFormTest extends UnitTestCase {
 
   public function setUp() {
@@ -46,14 +49,14 @@ class BookImportFormTest extends UnitTestCase {
   /**
    * @dataProvider palindromeData
    */
-  public function testPalindromeValidation($string, $expected) {
+  public function testPalindromeValidation($string, $passes) {
     $import_form = new BookImportForm();
     $form = array();
     $form_state = new FormState();
 
-    $form_state->set('palindrome', $string);
+    $form_state->setValue('palindrome', $string);
     $import_form->validateForm($form, $form_state);
-    if ($expected) {
+    if ($passes) {
       $this->assertCount(0, $form_state->getErrors());
     }
     else {
@@ -65,10 +68,12 @@ class BookImportFormTest extends UnitTestCase {
   public function palindromeData() {
     return [
       [NULL, TRUE],
-      ['ABC', FALSE],
+      ['', TRUE],
       ['A', TRUE],
       ['Was it a car or a cat I saw?', TRUE],
       ['A man, a plan, a canal, Panama!', TRUE],
+      ['ABCDE', FALSE],
     ];
   }
+
 }

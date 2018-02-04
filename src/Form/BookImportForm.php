@@ -57,9 +57,9 @@ class BookImportForm extends FormBase {
   public function validateForm(array &$form, FormStateInterface $form_state) {
     parent::validateForm($form, $form_state);
 
-    $palindrome = $form_state->get('palindrome');
+    $palindrome = $form_state->getValue('palindrome');
     if (!empty($palindrome)) {
-      $palindrome = strtolower(
+      $palindrome = strtoupper(
         preg_replace('/[^\w]/', '', $palindrome)
       );
       if ($palindrome != strrev($palindrome)) {
