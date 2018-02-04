@@ -1,0 +1,7 @@
+form_validation.book_import:
+  path: '/book/import'
+  defaults:
+    _title: 'Import Books'
+    _form: '\Drupal\form_validation\Form\BookImportForm'
+  requirements:
+    _permission: 'import books'
