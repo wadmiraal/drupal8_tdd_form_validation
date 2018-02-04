@@ -9,6 +9,8 @@ class BookImportForm extends FormBase {
 
   /**
    * {@inheritdoc}
+   *
+   * @codeCoverageIgnore
    */
   public function getFormId() {
     return 'form_validation_book_import';
@@ -26,6 +28,13 @@ class BookImportForm extends FormBase {
         'form_validation_validate_csv' => [],
       ],
     ];
+
+    if (\Drupal::currentUser()->hasPermission('administer books')) {
+      $form['reset'] = [
+        '#type' => 'checkbox',
+        '#title' => $this->t("Reset all books"),
+      ];
+    }
 
     $form['actions']['#type'] = 'actions';
     $form['actions']['submit'] = [
