@@ -43,4 +43,32 @@ class BookImportFormTest extends UnitTestCase {
     $this->assertArrayHasKey('reset', $form);
   }
 
+  /**
+   * @dataProvider palindromeData
+   */
+  public function testPalindromeValidation($string, $expected) {
+    $import_form = new BookImportForm();
+    $form = array();
+    $form_state = new FormState();
+
+    $form_state->set('palindrome', $string);
+    $import_form->validateForm($form, $form_state);
+    if ($expected) {
+      $this->assertCount(0, $form_state->getErrors());
+    }
+    else {
+      $this->assertCount(1, $form_state->getErrors());
+      $this->assertArrayHasKey('palindrome', $form_state->getErrors());
+    }
+  }
+
+  public function palindromeData() {
+    return [
+      [NULL, TRUE],
+      ['ABC', FALSE],
+      ['A', TRUE],
+      ['Was it a car or a cat I saw?', TRUE],
+      ['A man, a plan, a canal, Panama!', TRUE],
+    ];
+  }
 }
