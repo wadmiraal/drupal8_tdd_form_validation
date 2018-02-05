@@ -6,4 +6,5 @@ Drupal Forms and TDD Example
 This module serves as a proof-of-concept for using TDD practices when writing forms logic in Drupal. It's used in a series of blog posts entitled _Drupal Forms and TDD_:
 
 * [Part 1: file upload validation](http://wadmiraal.net/lore/2018/01/29/drupal-forms-and-tdd-part-1-file-validation/)
+* [Part 2: form building](http://wadmiraal.net/lore/2018/02/05/drupal-forms-and-tdd-part-2-form-building/)
 
