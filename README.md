@@ -7,4 +7,5 @@ This module serves as a proof-of-concept for using TDD practices when writing fo
 
 * [Part 1: file upload validation](http://wadmiraal.net/lore/2018/01/29/drupal-forms-and-tdd-part-1-file-validation/)
 * [Part 2: form building](http://wadmiraal.net/lore/2018/02/05/drupal-forms-and-tdd-part-2-form-building/)
+* [Part 3: form validatiom](http://wadmiraal.net/lore/2018/02/12/drupal-forms-and-tdd-part-3-form-validation/)
 
