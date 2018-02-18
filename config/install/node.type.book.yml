@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {}
+name: Book
+type: book
+description: A book entity.
+

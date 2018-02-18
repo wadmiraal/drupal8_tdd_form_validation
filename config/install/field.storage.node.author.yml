@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+id: node.author
+field_name: author
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+cardinality: -1
+module: core
+
