@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.book.author
+    - field.field.node.book.book_author
     - node.type.book
   module:
     - path
@@ -17,7 +17,7 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  author:
+  book_author:
     weight: 121
     settings:
       match_operator: CONTAINS

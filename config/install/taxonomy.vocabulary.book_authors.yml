@@ -2,5 +2,5 @@
 langcode: en
 status: true
 name: Authors
-vid: authors
+vid: book_authors
 dependencies: {}
