@@ -6,7 +6,7 @@ use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\file\FileInterface;
-use Drupal\form_validation\CsvValidator;
+use Drupal\form_validation\CsvParser;
 use Drupal\Tests\UnitTestCase;
 
 /**
@@ -24,8 +24,8 @@ class CsvValidationTest extends UnitTestCase {
 
     $container = new ContainerBuilder();
 
-    $validator = new CsvValidator();
-    $container->set('form_validation.csv_validator', $validator);
+    $validator = new CsvParser();
+    $container->set('form_validation.csv_parser', $validator);
 
     $translations = $this->getMock(TranslationInterface::class);
     $container->set('string_translation', $translations);
