@@ -8,6 +8,8 @@ env:
 install:
   # We need a full Drupal project for our Kernel tests to work. Create a new project.
   - composer create-project drupal-composer/drupal-project:8.x-dev drupal --stability dev --no-interaction
+  # Drupal 8.4.x has a bug that doesn't allow Kernel tests to use SQLite. Apply a patch that fixes it.
+  - patch -d drupal/web -p1 < sqlite-driver-exception.patch
   # Our code is no longer in the correct place. Copy it over.
   - mkdir -p drupal/web/modules/form_validation && cp -a form_validation* tests src drupal/web/modules/form_validation
   # Update the phpunit.xml.dist file. We want to ignore test coverage for core files.
