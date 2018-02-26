@@ -12,7 +12,7 @@ install:
   # Drupal 8.4.x has a bug that doesn't allow Kernel tests to use SQLite. Apply a patch that fixes it.
   - patch -d drupal/web -p1 < sqlite-driver-exception.patch
   # Our code is no longer in the correct place. Copy it over.
-  - mkdir -p drupal/web/modules/form_validation && cp -a form_validation* tests src drupal/web/modules/form_validation
+  - mkdir -p drupal/web/modules/form_validation && cp -a form_validation* tests src config drupal/web/modules/form_validation
   # Update the phpunit.xml.dist file. We want to ignore test coverage for core files.
   - patch -d drupal/web/core -p1 < travis-ci-phpunit.xml.dist.patch
 before_script:
