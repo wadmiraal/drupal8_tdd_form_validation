@@ -5,7 +5,6 @@ php:
 cache:
   directories:
     - $HOME/.composer/cache/files
-    - $HOME/drupal.sqlite
 env:
   global:
     - SIMPLETEST_DB=sqlite://testdb.sqlite
@@ -20,7 +19,7 @@ install:
   # Update the phpunit.xml.dist file. We want to ignore test coverage for core files.
   - patch -d drupal/web/core -p1 < travis-ci-phpunit.xml.dist.patch
   # Install the Drupal site. Use the cached SQLite database to speed things up.
-  - test $HOME/drupal.sqlite || ./drupal/vendor/bin/drush si -r $(pwd)/drupal/web/ -y --db-url=sqlite://$HOME/drupal.sqlite minimal
+  - ./drupal/vendor/bin/drush si -r $(pwd)/drupal/web/ -y --db-url=sqlite://$HOME/drupal.sqlite minimal
   - ./drupal/vendor/bin/drush pm-enable -r $(pwd)/drupal/web/ -y simpletest
   # Run Drush as a webserver, in the background
   - ./drupal/vendor/bin/drush runserver -r $(pwd)/drupal/web/ & >> /dev/null 2>&1
