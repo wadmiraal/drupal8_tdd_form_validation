@@ -1,0 +1,21 @@
+diff --git a/core/lib/Drupal/Core/Database/Database.php b/core/lib/Drupal/Core/Database/Database.php
+index dd19018828..f3abe2b24e 100644
+--- a/core/lib/Drupal/Core/Database/Database.php
++++ b/core/lib/Drupal/Core/Database/Database.php
+@@ -456,9 +456,15 @@ public static function ignoreTarget($key, $target) {
+    */
+   public static function convertDbUrlToConnectionInfo($url, $root) {
+     $info = parse_url($url);
+-    if (!isset($info['scheme'], $info['host'], $info['path'])) {
++    if (!isset($info['scheme'], $info['host'])) {
+       throw new \InvalidArgumentException('Minimum requirement: driver://host/database');
+     }
++    if ($info['scheme'] !== 'sqlite' && !isset($info['path'])) {
++      throw new \InvalidArgumentException('Minimum requirement: driver://host/database');
++    }
++    elseif ($info['scheme'] === 'sqlite') {
++      $info['path'] = $info['host'];
++    }
+     $info += [
+       'user' => '',
+       'pass' => '',

@@ -1,0 +1,27 @@
+language: php
+php:
+  - '7.0'
+  - '7.1'
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+env:
+  global:
+    - SIMPLETEST_DB=sqlite://testdb.sqlite
+    - SIMPLETEST_BASE_URL=http://127.0.0.1:8080
+install:
+  # We need a full Drupal project for our Kernel and Functional tests to work. Create a new project.
+  - composer create-project drupal-composer/drupal-project:8.x-dev drupal --stability dev --no-interaction
+  # Drupal 8.4.x has a bug that doesn't allow us to use SQLite. Apply a patch that fixes it.
+  - patch -d drupal/web -p1 < sqlite-driver-exception.patch
+  # Our code is no longer in the correct place. Copy it over.
+  - mkdir -p drupal/web/modules/form_validation && cp -a form_validation* tests src config drupal/web/modules/form_validation
+  # Update the phpunit.xml.dist file. We want to ignore test coverage for core files.
+  - patch -d drupal/web/core -p1 < travis-ci-phpunit.xml.dist.patch
+  # Install the Drupal site.
+  - ./drupal/vendor/bin/drush si -r $(pwd)/drupal/web/ --db-url=sqlite://$HOME/drupal.sqlite minimal
+  - ./drupal/vendor/bin/drush si -r $(pwd)/drupal/web/ en testing
+  # Run Drush as a webserver, in the background
+  - ./drupal/vendor/bin/drush runserver & >> /dev/null 2>&1
+script:
+  - drupal/vendor/bin/phpunit -c drupal/web/core drupal/web/modules/form_validation/tests/ --coverage-clover clover.xml
