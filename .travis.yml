@@ -20,7 +20,7 @@ install:
   - patch -d drupal/web/core -p1 < travis-ci-phpunit.xml.dist.patch
   # Install the Drupal site.
   - ./drupal/vendor/bin/drush si -r $(pwd)/drupal/web/ -y --db-url=sqlite://$HOME/drupal.sqlite minimal
-  - ./drupal/vendor/bin/drush pm-enable -r $(pwd)/drupal/web/ -y testing
+  - ./drupal/vendor/bin/drush pm-enable -r $(pwd)/drupal/web/ -y simpletest
   # Run Drush as a webserver, in the background
   - ./drupal/vendor/bin/drush runserver & >> /dev/null 2>&1
 script:
