@@ -15,7 +15,7 @@ install:
   # Drupal 8.4.x has a bug that doesn't allow us to use SQLite. Apply a patch that fixes it.
   - patch -d drupal/web -p1 < sqlite-driver-exception.patch
   # Our code is no longer in the correct place. Copy it over.
-  - mkdir -p drupal/web/modules/form_validation && cp -a form_validation* tests src config drupal/web/modules/form_validation
+  - mkdir -p drupal/web/modules/form_validation && cp -a form_validation* tests src drupal/web/modules/form_validation
   # Update the phpunit.xml.dist file. We want to ignore test coverage for core files.
   - patch -d drupal/web/core -p1 < travis-ci-phpunit.xml.dist.patch
   # Install the Drupal site.
@@ -24,4 +24,4 @@ install:
   # Run Drush as a webserver, in the background
   - ./drupal/vendor/bin/drush runserver & >> /dev/null 2>&1
 script:
-  - drupal/vendor/bin/phpunit -c drupal/web/core drupal/web/modules/form_validation/tests/ --coverage-clover clover.xml
+  - drupal/vendor/bin/phpunit -c drupal/web/core drupal/web/modules/form_validation/tests/Functional
