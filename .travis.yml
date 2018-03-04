@@ -24,4 +24,4 @@ install:
   # Run Drush as a webserver, in the background
   - ./drupal/vendor/bin/drush runserver & >> /dev/null 2>&1
 script:
-  - drupal/vendor/bin/phpunit -c drupal/web/core drupal/web/modules/form_validation/tests/Functional
+  - drupal/vendor/bin/phpunit -c drupal/web/core drupal/web/modules/form_validation/tests/src/Functional
