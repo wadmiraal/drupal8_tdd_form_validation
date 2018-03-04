@@ -8,7 +8,7 @@ cache:
 env:
   global:
     - SIMPLETEST_DB=sqlite://testdb.sqlite
-    - SIMPLETEST_BASE_URL=http://127.0.0.1:8080
+    - SIMPLETEST_BASE_URL=http://127.0.0.1:8888/
 install:
   # We need a full Drupal project for our Kernel and Functional tests to work. Create a new project.
   - composer create-project drupal-composer/drupal-project:8.x-dev drupal --stability dev --no-interaction
@@ -22,6 +22,6 @@ install:
   - ./drupal/vendor/bin/drush si -r $(pwd)/drupal/web/ -y --db-url=sqlite://$HOME/drupal.sqlite minimal
   - ./drupal/vendor/bin/drush pm-enable -r $(pwd)/drupal/web/ -y simpletest
   # Run Drush as a webserver, in the background
-  - ./drupal/vendor/bin/drush runserver & >> /dev/null 2>&1
+  - ./drupal/vendor/bin/drush runserver -r $(pwd)/drupal/web/ & >> /dev/null 2>&1
 script:
-  - drupal/vendor/bin/phpunit -c drupal/web/core drupal/web/modules/form_validation/tests/src/Functional
+  - ./drupal/vendor/bin/phpunit -c drupal/web/core drupal/web/modules/form_validation/tests/src/Functional
