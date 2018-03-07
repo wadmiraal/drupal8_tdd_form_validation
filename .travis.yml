@@ -10,7 +10,7 @@ env:
     - SIMPLETEST_DB=sqlite://testdb.sqlite
     - SIMPLETEST_BASE_URL=http://127.0.0.1:8888/
 install:
-  # We need a full Drupal project for our Kernel and Functional tests to work. Create a new project.
+  # We need a full Drupal project for our functional tests to work. Create a new project.
   - composer create-project drupal-composer/drupal-project:8.x-dev drupal --stability dev --no-interaction
   # Drupal 8.4.x has a bug that doesn't allow us to use SQLite. Apply a patch that fixes it.
   - patch -d drupal/web -p1 < sqlite-driver-exception.patch
