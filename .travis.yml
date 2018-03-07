@@ -7,19 +7,13 @@ cache:
     - $HOME/.composer/cache/files
 env:
   global:
-    - SIMPLETEST_DB=sqlite://testdb.sqlite
-    - SIMPLETEST_BASE_URL=http://127.0.0.1:8888/
+    - SIMPLETEST_BASE_URL=http://localhost:8888/
 install:
   # We need a full Drupal project for our functional tests to work. Create a new project.
   - composer create-project drupal-composer/drupal-project:8.x-dev drupal --stability dev --no-interaction
-  # Drupal 8.4.x has a bug that doesn't allow us to use SQLite. Apply a patch that fixes it.
-  - patch -d drupal/web -p1 < sqlite-driver-exception.patch
   # Our code is no longer in the correct place. Copy it over.
   - mkdir -p drupal/web/modules/form_validation && cp -a form_validation* tests src drupal/web/modules/form_validation
-  # Install the Drupal site.
-  - ./drupal/vendor/bin/drush si -r $(pwd)/drupal/web/ -y --db-url=sqlite://$HOME/drupal.sqlite minimal
-  - ./drupal/vendor/bin/drush pm-enable -r $(pwd)/drupal/web/ -y simpletest
-  # Run Drush as a webserver, in the background
-  - ./drupal/vendor/bin/drush runserver -r $(pwd)/drupal/web/ & >> /dev/null 2>&1
+  # Run PHP as a webserver, in the background
+  - php -S localhost:8888 -t $(pwd)/drupal/web/ & >> /dev/null 2>&1
 script:
-  - ./drupal/vendor/bin/phpunit -c drupal/web/core drupal/web/modules/form_validation/tests/src/Functional
+  - cd drupal/web && php ./core/scripts/run-tests.sh --sqlite=/tmp/tests.sqlite --url=http://127.0.0.1:8888/ --directory=modules/form_validation/tests/
