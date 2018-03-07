@@ -17,8 +17,8 @@ install:
   # Our code is no longer in the correct place. Copy it over.
   - mkdir -p drupal/web/modules/form_validation && cp -a form_validation* tests src drupal/web/modules/form_validation
   # Install the Drupal site.
-  - ./drupal/vendor/bin/drush si -r $(pwd)/drupal/web/ -y --db-url=sqlite://$HOME/drupal.sqlite minimal
-  - ./drupal/vendor/bin/drush pm-enable -r $(pwd)/drupal/web/ -y simpletest
+  #- ./drupal/vendor/bin/drush si -r $(pwd)/drupal/web/ -y --db-url=sqlite://$HOME/drupal.sqlite minimal
+  #- ./drupal/vendor/bin/drush pm-enable -r $(pwd)/drupal/web/ -y simpletest
   # Run Drush as a webserver, in the background
   - ./drupal/vendor/bin/drush runserver -r $(pwd)/drupal/web/ & >> /dev/null 2>&1
 script:
