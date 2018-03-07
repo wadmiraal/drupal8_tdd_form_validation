@@ -5,9 +5,6 @@ php:
 cache:
   directories:
     - $HOME/.composer/cache/files
-env:
-  global:
-    - SIMPLETEST_BASE_URL=http://localhost:8888/
 install:
   # We need a full Drupal project for our functional tests to work. Create a new project.
   - composer create-project drupal-composer/drupal-project:8.x-dev drupal --stability dev --no-interaction
@@ -16,4 +13,4 @@ install:
   # Run PHP as a webserver, in the background
   - php -S localhost:8888 -t $(pwd)/drupal/web/ & >> /dev/null 2>&1
 script:
-  - cd drupal/web && php ./core/scripts/run-tests.sh --sqlite=/tmp/tests.sqlite --url=http://127.0.0.1:8888/ --directory=modules/form_validation/tests/
+  - cd drupal/web && php ./core/scripts/run-tests.sh --sqlite /tmp/tests.sqlite --url http://127.0.0.1:8888/ --directory modules/form_validation/tests/ --concurrency 4
