@@ -13,4 +13,4 @@ install:
   # Run PHP as a webserver, in the background
   - php -S localhost:8888 -t $(pwd)/drupal/web/ & >> /dev/null 2>&1
 script:
-  - cd drupal/web && php ./core/scripts/run-tests.sh --php $(which php) --sqlite /tmp/tests.sqlite --url http://127.0.0.1:8888/ --directory modules/form_validation/tests/ --concurrency 4
+  - cd drupal/web && php ./core/scripts/run-tests.sh --php $(which php) --dburl sqlite://tmp/tests.sqlite --sqlite /tmp/tests.sqlite --url http://127.0.0.1:8888/ --directory modules/form_validation/tests/ --concurrency 4
