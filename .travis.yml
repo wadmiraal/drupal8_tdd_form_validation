@@ -27,6 +27,6 @@ script:
   - drupal/vendor/bin/phpunit -c drupal/web/core drupal/web/modules/form_validation/tests/ --coverage-clover clover.xml
 after_script:
   # Submit the test coverage report to Code Climate.
-  - ls
-  - ls */
+  - ls drupal/*
+  - ls drupal/*/*
   - ./cc-test-reporter after-build -t clover -d --exit-code $TRAVIS_TEST_RESULT
