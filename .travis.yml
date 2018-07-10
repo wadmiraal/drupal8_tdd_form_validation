@@ -6,8 +6,9 @@ cache:
   directories:
     - $HOME/.composer/cache/files
 env:
-  - CC_TEST_REPORTER_ID=780039b81ab6a07dfc1283aad0af2aba561e02c15958c67500166dc87ae2543f
-  - SIMPLETEST_DB=sqlite://testdb.sqlite
+  global:
+    - CC_TEST_REPORTER_ID=780039b81ab6a07dfc1283aad0af2aba561e02c15958c67500166dc87ae2543f
+    - SIMPLETEST_DB=sqlite://testdb.sqlite
 install:
   # We need a full Drupal project for our Kernel tests to work. Create a new project.
   - composer create-project drupal-composer/drupal-project:8.x-dev drupal --stability dev --no-interaction
